@@ -40,7 +40,7 @@ nav {
     display: flex;
     justify-content: center;
     gap: 2rem;
-    background: #yellow;
+    background: #eaf1fb;
     padding: 1rem;
 }
 nav a {
