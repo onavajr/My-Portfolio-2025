@@ -1,71 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/styles.css"/>
         <title>Orlando Nava Portfolio 2025</title>
     </head>
     <body>
-        <header>
-            <h1>Orlando Nava</h1>
-            <p>Web Developer & Designer | My Portfolio Project 2025</p>
-        </header>
-        <nav>
-            <a href="#about">About</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
-        </nav>
-        <div id="container">
-            <section id="about" class="about">
-                <img id="my_photo" src="/my_photo.jpeg" alt="Orlando Nava"/>
-                <div class="about-content">
-                    <h2 class="section-title">About Me</h2>
-                    <p id="about-text">
-                        Hello! I'm Orlando Nava, a passionate web developer and designer with a knack    for creating beautiful and functional websites. With a background in computer science and a love for design, I blend technical skills with creativity to deliver exceptional digital experiences. In my portfolio, you'll find a selection of my projects that showcase my expertise in front-end and back-end development, as well as my ability to work with various technologies and frameworks. When I'm not coding, I enjoy exploring new design trends, contributing to open-source projects, and enhancing my skills through continuous learning. Feel free to explore my work and get in touch if you'd like to collaborate or learn more about me!
-                    </p>
-                </div>
-            </section>
-            <section id="projects">
-                <h2 class="section-title">Projects</h2>
-                <div class="projects">
-                    <div class="project-card">
-                        <img src="https://via.placeholder.com/300x180" alt="Project 1"/>
-                        <div class="card-content">
-                            <h2>Project One</h2>
-                            <p>A responsive e-commerce website built with React and Node.js, featuring a sleek design and seamless user experience.</p>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <img src="https://via.placeholder.com/300x180" alt="Project 2"/>
-                        <div class="card-content">
-                            <h2>Project Two</h2>
-                            <p>A mobile app developed using Flutter, providing users with real-time weather updates and forecasts.</p>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <img src="https://via.placeholder.com/300x180" alt="Project 3"/>
-                        <div class="card-content">
-                            <h2>Project Three</h2>
-                            <p>A personal blog platform created with Django, focusing on clean design and easy content management.</p>
-                        </div>
+    <header>
+        <h1>Orlando Nava</h1>
+        <p>Web Developer & Designer | Portfolio 2025</p>
+    </header>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <div class="container">
+        <section id="about" class="about">
+            <img src="/my_photo.jpeg" alt="Jane Doe"/>
+            <div class="about-content">
+                <h2 class="section-title">About Me</h2>
+                <p>
+                    Hi! I'm Jane, a passionate web developer specializing in modern, responsive design. I love building beautiful and functional websites using the latest technologies. Let's create something amazing together!
+                </p>
+            </div>
+        </section>
+        <section id="projects">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects">
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Project 1"/>
+                    <div class="card-content">
+                        <h2>Modern Portfolio</h2>
+                        <p>A sleek and responsive portfolio website built with HTML, CSS, and JavaScript.</p>
                     </div>
                 </div>
-            </section>
-            <section id="contact">
-                <h2 class="section-title">Contact</h2>
-                <form id="contactForm">
-                    <input type=""text" name="name" placeholder="Your Name" required>
-                    <input type="email" name="email" placeholder="Your Email" required>
-                    <textarea name="message" placeholder="Your Message" rows="5" required>
-                        Your message here...
-                    </textarea>
-                    <button type="submit">Send</button>
-                </form>
-                <footer>
-                    © 2025 Orlando Nava All rights reserved.
-                </footer>
-            </section>
-        </div>
-    </body>
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Project 2"/>
+                    <div class="card-content">
+                        <h2>Creative Blog</h2>
+                        <p>A minimal blog platform with a focus on readability and user experience.</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Project 3"/>
+                    <div class="card-content">
+                        <h2>Photo Gallery</h2>
+                        <p>Responsive photo gallery showcasing beautiful images and smooth transitions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="contact" style="margin-top:2rem;">
+            <h2 class="section-title">Contact</h2>
+            <form id="contactForm" style="max-width:400px;margin:auto;">
+                <input type="text" name="name" placeholder="Your Name" required style="width:100%;padding:0.7rem;margin-bottom:1rem;border-radius:var(--radius);border:1px solid #ccc;"/>
+                <input type="email" name="email" placeholder="Your Email" required style="width:100%;padding:0.7rem;margin-bottom:1rem;border-radius:var(--radius);border:1px solid #ccc;"/>
+                <textarea name="message" placeholder="Your Message" required style="width:100%;padding:0.7rem;margin-bottom:1rem;border-radius:var(--radius);border:1px solid #ccc;"></textarea>
+                <button type="submit" style="width:100%;padding:0.7rem;background:var(--accent);color:#fff;border:none;border-radius:var(--radius);font-size:1rem;cursor:pointer;">Send</button>
+            </form>
+            <div id="formMessage" style="text-align:center;margin-top:1rem;color:var(--accent);"></div>
+        </section>
+    </div>
+    <footer>
+        &copy; 2025 Orlando Nava All rights reserved.
+    </footer>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('formMessage').textContent = 'Thank you for contacting me!';
+            this.reset();
+        });
+    </script>
+</body>
 </html>
