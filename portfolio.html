@@ -52,64 +52,25 @@
                 </div>
             </div>
         </section>
-        <section id="contact">
-            <h2>Contact</h2>
-            <p>If you'd like to get in touch, send a message using the form below.</p>
-
-            <form id="contact-form" action="#" method="post" novalidate>
-                <div class="form-row">
-                    <label for="name">Name</label>
-                    <input id="name" name="name" type="text" required>
-                </div>
-
-                <div class="form-row">
-                    <label for="email">Email</label>
-                    <input id="email" name="email" type="email" required>
-                </div>
-
-                <div class="form-row">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" rows="6" required></textarea>
-                </div>
-
-                <div class="form-row">
-                    <button type="submit" class="btn btn-primary">Send message</button>
-                    <span id="form-status" role="status" aria-live="polite" style="margin-left:1rem"></span>
-                </div>
+        <section id="contact" style="margin-top:2rem;">
+            <h2 class="section-title">Contact</h2>
+            <form id="contactForm" style="max-width:400px;margin:auto;">
+                <input type="text" name="name" placeholder="Your Name" required style="width:100%;padding:0.7rem;margin-bottom:1rem;border-radius:var(--radius);border:1px solid #ccc;"/>
+                <input type="email" name="email" placeholder="Your Email" required style="width:100%;padding:0.7rem;margin-bottom:1rem;border-radius:var(--radius);border:1px solid #ccc;"/>
+                <textarea name="message" placeholder="Your Message" required style="width:100%;padding:0.7rem;margin-bottom:1rem;border-radius:var(--radius);border:1px solid #ccc;"></textarea>
+                <button type="submit" style="width:100%;padding:0.7rem;background:var(--accent);color:#fff;border:none;border-radius:var(--radius);font-size:1rem;cursor:pointer;">Send</button>
             </form>
+            <div id="formMessage" style="text-align:center;margin-top:1rem;color:var(--accent);"></div>
         </section>
     </div>
     <footer>
         &copy; 2025 Orlando Nava All rights reserved.
     </footer>
     <script>
-        // Small client-side handler that prevents a real submit and shows a status message.
-        document.addEventListener('DOMContentLoaded', function () {
-            const form = document.getElementById('contact-form');
-            const status = document.getElementById('form-status');
-            form.addEventListener('submit', function (e) {
-                e.preventDefault();
-
-                // Use browser validation first
-                if (!form.checkValidity()) {
-                    form.reportValidity();
-                    return;
-                }
-
-                const btn = form.querySelector('button[type="submit"]');
-                const originalText = btn.textContent;
-                btn.disabled = true;
-                btn.textContent = 'Sending...';
-                status.textContent = '';
-
-                // Simulate an async send (replace this with a fetch to your backend or service)
-                setTimeout(function () {
-                    btn.disabled = false;
-                    btn.textContent = originalText;
-                    form.reset();
-                    status.textContent = 'Thanks — your message was sent (simulated).';
-                }, 900);
-            });
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('formMessage').textContent = 'Thank you for contacting me!';
+            this.reset();
         });
     </script>
 </body>
