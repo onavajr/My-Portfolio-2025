@@ -56,21 +56,7 @@
             <h2>Contact</h2>
             <p>If you'd like to get in touch, send a message using the form below.</p>
 
-            <!--
-              Netlify (recommended for static sites): deploy this site to Netlify and the form will be handled automatically.
-              The form below is configured for Netlify by default (data-netlify="true").
-
-              Formspree: to use Formspree instead, set the form's `data-service="formspree"` and update the `action` attribute
-              to your Formspree endpoint (for example: https://formspree.io/f/your-id). Remove `data-netlify` when using Formspree.
-            -->
-            <form id="contact-form" name="contact" method="POST" data-netlify="true" data-service="netlify" novalidate>
-                <!-- Netlify requires a form-name hidden input for non-JS submissions -->
-                <input type="hidden" name="form-name" value="contact">
-                <!-- Honeypot for bots (Netlify will ignore submissions with this filled) -->
-                <div style="display:none;">
-                  <label>Don’t fill this out if you're human: <input name="bot-field"></label>
-                </div>
-
+            <form id="contact-form" action="#" method="post" novalidate>
                 <div class="form-row">
                     <label for="name">Name</label>
                     <input id="name" name="name" type="text" required>
@@ -97,35 +83,14 @@
         &copy; 2025 Orlando Nava All rights reserved.
     </footer>
     <script>
-        // Progressive form submitter: supports Netlify Forms (default) and Formspree.
+        // Small client-side handler that prevents a real submit and shows a status message.
         document.addEventListener('DOMContentLoaded', function () {
             const form = document.getElementById('contact-form');
             const status = document.getElementById('form-status');
-
-            async function submitToFormspree(action, payload) {
-                const res = await fetch(action, {
-                    method: 'POST',
-                    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload),
-                });
-                return res;
-            }
-
-            async function submitToNetlify(payload) {
-                // Netlify accepts application/x-www-form-urlencoded for AJAX submissions
-                const body = new URLSearchParams(payload).toString();
-                const res = await fetch('/', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body,
-                });
-                return res;
-            }
-
-            form.addEventListener('submit', async function (e) {
+            form.addEventListener('submit', function (e) {
                 e.preventDefault();
 
-                // Client-side validation
+                // Use browser validation first
                 if (!form.checkValidity()) {
                     form.reportValidity();
                     return;
@@ -137,59 +102,13 @@
                 btn.textContent = 'Sending...';
                 status.textContent = '';
 
-                // Build payload from form fields
-                const formData = new FormData(form);
-                // Convert to plain object (handles repeated fields if any)
-                const payload = {};
-                formData.forEach((v, k) => {
-                    payload[k] = v;
-                });
-
-                try {
-                    let res;
-                    const service = (form.dataset.service || '').toLowerCase();
-                    const isNetlify = form.hasAttribute('data-netlify') && service !== 'formspree';
-
-                    if (service === 'formspree' && form.action) {
-                        // Submit JSON to Formspree endpoint (set form.action to your Formspree URL)
-                        res = await submitToFormspree(form.action, payload);
-                    } else if (isNetlify) {
-                        // Ensure form-name exists (Netlify requires it)
-                        if (!payload['form-name']) payload['form-name'] = form.getAttribute('name') || 'contact';
-                        res = await submitToNetlify(payload);
-                    } else if (form.action && service) {
-                        // Generic fallback to POST JSON to whatever action is specified
-                        res = await fetch(form.action, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(payload),
-                        });
-                    } else {
-                        status.textContent = 'Form is not configured for a remote service. Set data-service or action attribute.';
-                        return;
-                    }
-
-                    if (res && (res.ok || res.status === 200 || res.status === 201)) {
-                        form.reset();
-                        status.textContent = 'Thanks — your message was sent.';
-                    } else {
-                        // Try to parse error message
-                        let errText = 'Error sending message.';
-                        try {
-                            const body = await (res && res.json ? res.json() : {});
-                            if (body && body.error) errText = `Error: ${body.error}`;
-                        } catch (err) {
-                            // ignore
-                        }
-                        status.textContent = errText;
-                    }
-                } catch (err) {
-                    console.error('Submit error', err);
-                    status.textContent = 'Network error. Try again later.';
-                } finally {
+                // Simulate an async send (replace this with a fetch to your backend or service)
+                setTimeout(function () {
                     btn.disabled = false;
                     btn.textContent = originalText;
-                }
+                    form.reset();
+                    status.textContent = 'Thanks — your message was sent (simulated).';
+                }, 900);
             });
         });
     </script>
