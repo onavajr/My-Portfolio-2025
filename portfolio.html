@@ -15,6 +15,7 @@
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
+        <button onclick="darklight()">Dark/Light Mode</button>
     </nav>
     <div class="container">
         <section id="about" class="about">
@@ -66,12 +67,7 @@
     <footer>
         &copy; 2025 Orlando Nava All rights reserved.
     </footer>
-    <script>
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            document.getElementById('formMessage').textContent = 'Thank you for contacting me!';
-            this.reset();
-        });
-    </script>
+    <script src="/contactform.js"></script>
+    <script src="/darklight.js"></script>
 </body>
 </html>

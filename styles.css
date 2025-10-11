@@ -30,9 +30,11 @@
         nav {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 2rem;
             background: #eaf1fb;
             padding: 1rem 0;
+            height: 1rem;
         }
         nav a {
             color: var(--primary);
@@ -126,4 +128,9 @@
             .about img {
                 margin-bottom: 1rem;
             }
+        }
+
+        .dark-mode {
+            background-color: black;
+            color: white;
         }
