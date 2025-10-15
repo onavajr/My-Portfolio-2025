@@ -1,7 +1,0 @@
-:example.com {
-    root * /usr/share/caddy
-    file_server
-    try_files {path} /portfolio.html
-}
-
-# Replace :example.com with your domain or use an IP with http:// (no automatic TLS for IPs)
