@@ -12,22 +12,54 @@
         }
     }
 
-    // Form submit handler
+    // Form submit handler — sends to /api/contact (JSON) with graceful fallback
     function handleContactSubmit(event) {
         event.preventDefault();
-        var form = event.currentTarget;
-        var messageEl = qs('#formMessage');
+        var form = event.currentTarget || qs('#contact-form');
+        if (!form) return;
 
-        if (messageEl) {
-            messageEl.textContent = 'Thank you for contacting me!';
-            // Optional: add a transient aria-live or class for animations
+        // built-in HTML validation
+        if (!form.checkValidity()) {
+            try { form.reportValidity(); } catch (err) { /* ignore */ }
+            return;
         }
 
-        try {
-            form.reset();
-        } catch (err) {
-            // ignore reset errors
+        var statusEl = qs('#form-status');
+        var submitBtn = form.querySelector('button[type="submit"]');
+        var originalBtnText = submitBtn ? submitBtn.textContent : '';
+
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
         }
+        if (statusEl) statusEl.textContent = '';
+
+        // Build payload
+        var fd = new FormData(form);
+        var payload = {};
+        fd.forEach(function (value, key) { payload[key] = value; });
+
+        // Try posting to backend; if it fails, fall back to a simulated send
+        fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        }).then(function (res) {
+            if (!res.ok) throw new Error('Network response not ok');
+            return res.json().catch(function () { return { ok: true }; });
+        }).then(function (data) {
+            if (statusEl) statusEl.textContent = 'Thanks — your message was sent.';
+            try { form.reset(); } catch (err) { /* ignore */ }
+        }).catch(function (err) {
+            // Network or server error — show fallback message and simulate send
+            if (statusEl) statusEl.textContent = 'Could not reach server; message simulated locally.';
+            try { form.reset(); } catch (err2) { /* ignore */ }
+        }).finally(function () {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalBtnText;
+            }
+        });
     }
 
     // Dark mode toggle with persistence
@@ -60,7 +92,7 @@
     function init() {
         applyStoredTheme();
 
-        var contactForm = qs('#contactForm');
+        var contactForm = qs('#contact-form') || qs('#contactForm');
         if (contactForm) {
             contactForm.addEventListener('submit', handleContactSubmit, false);
         }
