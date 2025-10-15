@@ -18,10 +18,48 @@
         var form = event.currentTarget || qs('#contact-form');
         if (!form) return;
 
-        // built-in HTML validation
-        if (!form.checkValidity()) {
-            try { form.reportValidity(); } catch (err) { /* ignore */ }
-            return;
+        // custom validation
+        var firstInvalid = null;
+        var errors = [];
+        function setFieldError(el, msg) {
+            if (!el) return;
+            var row = el.closest('.form-row') || el.parentElement;
+            if (!row) return;
+            row.querySelector('.field-error') && row.querySelector('.field-error').remove();
+            var err = document.createElement('div');
+            err.className = 'field-error';
+            err.textContent = msg;
+            err.setAttribute('aria-live', 'polite');
+            row.appendChild(err);
+            if (!firstInvalid) firstInvalid = el;
+        }
+
+        // clear previous errors
+        form.querySelectorAll('.field-error').forEach(function (n) { n.remove(); });
+
+        var nameEl = form.querySelector('[name="name"]');
+        var emailEl = form.querySelector('[name="email"]');
+        var messageElField = form.querySelector('[name="message"]');
+
+        if (nameEl) {
+            var v = (nameEl.value || '').trim();
+            if (v.length < 2) setFieldError(nameEl, 'Please enter your name (at least 2 characters)');
+        }
+
+        if (emailEl) {
+            var emailV = (emailEl.value || '').trim();
+            var emailRe = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+            if (!emailRe.test(emailV)) setFieldError(emailEl, 'Please enter a valid email address');
+        }
+
+        if (messageElField) {
+            var msg = (messageElField.value || '').trim();
+            if (msg.length < 10) setFieldError(messageElField, 'Please enter a longer message (10+ characters)');
+        }
+
+        if (firstInvalid) {
+            try { firstInvalid.focus(); } catch (err) {}
+            return; // abort submit
         }
 
         var statusEl = qs('#form-status');

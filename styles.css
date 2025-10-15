@@ -225,6 +225,16 @@
             resize: vertical;
         }
 
+        .field-error {
+            margin-top: 0.4rem;
+            color: #c94b4b;
+            font-size: 0. ninerem;
+        }
+
+        body.dark-mode .field-error {
+            color: #ff8b8b;
+        }
+
         .form-row input:focus, .form-row textarea:focus {
             outline: none;
             border-color: var(--accent);
