@@ -39,3 +39,31 @@ Notes
 - Replace example.com with your domain or server IP.
 - Make sure `portfolio.html` is present in the web root (it's set as the index in the config).
 - If you run nginx behind a firewall, open port 80 (and 443 for HTTPS).
+
+Docker + Caddy (automatic HTTPS)
+
+This repository includes a simple Docker Compose setup that runs Caddy to serve the static site and automatically obtain TLS certificates.
+
+1) Prepare the site folder in the `deploy` directory:
+
+   mkdir -p deploy/site
+   # Copy your static files into deploy/site (portfolio.html, styles.css, images, ...)
+
+2) Edit `deploy/Caddyfile` and replace `example.com` with your domain.
+
+3) On the server (Ubuntu), install Docker and Docker Compose if needed:
+
+   sudo apt update
+   sudo apt install -y docker.io docker-compose
+   sudo systemctl enable --now docker
+
+4) Start the stack from the project root:
+
+   cd /path/to/My-Portfolio-2025
+   docker compose -f deploy/docker-compose.yml up -d
+
+5) Verify: visit https://your-domain and check that `portfolio.html` is served and TLS is active.
+
+Notes:
+- Caddy will attempt to obtain certificates from Let's Encrypt for the domain you specify. Make sure DNS points to the server and ports 80/443 are open.
+- If you prefer to run behind nginx or another reverse proxy, configure Caddy accordingly or adjust the stack.
