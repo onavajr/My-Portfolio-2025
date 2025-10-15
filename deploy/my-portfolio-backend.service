@@ -1,0 +1,17 @@
+[Unit]
+Description=My Portfolio Node Backend
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/my-portfolio/backend
+Environment=NODE_ENV=production
+Environment=PORT=3000
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
