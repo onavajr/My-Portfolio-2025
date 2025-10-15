@@ -151,9 +151,38 @@
             }
         }
 
-        .dark-mode {
-            background-color: black;
-            color: white;
+        /* Theme transition */
+        body {
+            transition: background-color 220ms ease, color 220ms ease;
+        }
+
+        /* Dark theme variables applied when body has .dark-mode */
+        body.dark-mode {
+            --bg: #0b0d10;
+            --card-bg: #0f1113;
+            --primary: #e6eef9;
+            --accent: #6fa8ff;
+            --muted: #9aa6b2;
+            background-color: var(--bg);
+            color: var(--primary);
+        }
+
+        /* Inputs, textareas and cards should adapt in dark mode */
+        body.dark-mode form#contact-form,
+        body.dark-mode .project-card,
+        body.dark-mode .about {
+            background: var(--card-bg);
+        }
+
+        body.dark-mode .form-row input,
+        body.dark-mode .form-row textarea {
+            background: #0b0f12;
+            border-color: #22262b;
+            color: var(--primary);
+        }
+
+        body.dark-mode nav {
+            background: #071025;
         }
 
         /* Contact form styles */

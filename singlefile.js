@@ -67,6 +67,13 @@
         var el = document.body;
         if (!el) return;
         el.classList.toggle('dark-mode');
+        // update aria-pressed on toggles
+        try {
+            var pressed = el.classList.contains('dark-mode');
+            document.querySelectorAll('[data-toggle-dark]').forEach(function (btn) {
+                btn.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+            });
+        } catch (err) { /* ignore */ }
         if (save) {
             try {
                 var isDark = el.classList.contains('dark-mode');
@@ -83,6 +90,11 @@
             var pref = localStorage.getItem('prefers-dark');
             if (pref === '1') document.body.classList.add('dark-mode');
             else if (pref === '0') document.body.classList.remove('dark-mode');
+            // reflect the state on toggle buttons
+            var pressed = document.body.classList.contains('dark-mode');
+            document.querySelectorAll('[data-toggle-dark]').forEach(function (btn) {
+                btn.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+            });
         } catch (err) {
             // ignore storage errors
         }
